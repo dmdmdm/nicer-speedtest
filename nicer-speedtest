@@ -64,13 +64,13 @@ def main():
 	s.download(callback=progress_bar, threads=gthreads)
 	results = s.results.dict()
 	download = results['download']
-	print('Download: %0.2f MB/s' % ((download / 1000.0 / 1000.0)))
+	print('Download: %0.2f Mb/s' % ((download / 1000.0 / 1000.0)))
 	
 	gprogress_label = 'Testing upload... '
 	s.upload(callback=progress_bar, threads=gthreads)
 	results = s.results.dict()
 	upload = results['upload']
-	print('Upload: %0.2f MB/s' % ((upload / 1000.0 / 1000.0)))
+	print('Upload: %0.2f Mb/s' % ((upload / 1000.0 / 1000.0)))
 	
 	# s.results.share()
 
