@@ -1,7 +1,7 @@
 # nicer-speedtest
 Slightly nicer speedtestRetrieving speedtest.net server list.
 
-# Improvement
+# Improvements
 - Only shows what its 'Retrieving speedtest.net configuration', 'Retrieving speedtest.net server list', 'Selecting best server based on ping'
 while they are in progress - then they are erased.
 - Displays progressbars for download and upload
