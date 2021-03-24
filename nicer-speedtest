@@ -1,0 +1,77 @@
+#!/bin/python3
+# Based on https://github.com/sivel/speedtest-cli/wiki
+
+import os
+import sys
+import speedtest
+
+gservers = []
+# If you want to test against a specific server
+# servers = [1234]
+
+gthreads = None
+# If you want to use a single threaded test
+# gthreads = 1
+
+gclear_to_col = '\033[K'
+
+gprogress_label = ''
+
+gcolumns = 40
+
+def get_columns():
+	_, columns = os.popen('stty size', 'r').read().split()
+	return columns
+
+def progress_bar(current, total, start=False, end=False):
+	global gprogress_label, gclear_to_col, gcolumns
+	empty = ' '
+	cursor = '>'
+	filled = '='
+	header = '({:d}/{:d})'.format(current + 1, total)
+	width = (int(gcolumns) // 2) - len(header) - 4
+	completion = width * (current + 1) // total
+	progress = '[{}{}{}]'.format(filled * (completion - 1), cursor,
+			     empty * (width - completion))
+	status_bar = '{} {}'.format(header, progress)
+	
+	# Print updated status bar
+	sys.stdout.write(gclear_to_col + '{}\r'.format(gprogress_label + status_bar))
+	if current + 1 == total and end is True:
+		sys.stdout.write(gclear_to_col)  # clear to end of line
+	sys.stdout.flush()
+
+def main():
+	global gservers, gthreads, gprogress_label, gclear_to_col, gcolumns
+	gcolumns = get_columns()
+	sys.stdout.write('Retrieving speedtest.net configuration...\r')
+	s = speedtest.Speedtest()
+	sys.stdout.write(gclear_to_col)
+	config = s.get_config()
+	client = config['client']
+	isp = client['isp']
+	ip = client['ip']
+	print('Testing from %(isp)s (%(ip)s)...' % client)
+	sys.stdout.write('Retrieving speedtest.net server list...\r')
+	s.get_servers(gservers)
+	sys.stdout.write(gclear_to_col)
+	sys.stdout.write('Selecting best server based on ping...\r')
+	best = s.get_best_server()
+	sys.stdout.write(gclear_to_col)
+	print('Hosted by %(sponsor)s (%(name)s) [%(d)0.2f km]: %(latency)s ms' % best)
+	
+	gprogress_label = 'Testing download... '
+	s.download(callback=progress_bar, threads=gthreads)
+	results = s.results.dict()
+	download = results['download']
+	print('Download: %0.2f MB/s' % ((download / 1000.0 / 1000.0)))
+	
+	gprogress_label = 'Testing upload... '
+	s.upload(callback=progress_bar, threads=gthreads)
+	results = s.results.dict()
+	upload = results['upload']
+	print('Upload: %0.2f MB/s' % ((upload / 1000.0 / 1000.0)))
+	
+	# s.results.share()
+
+main()
