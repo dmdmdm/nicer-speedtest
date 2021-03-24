@@ -9,8 +9,8 @@ while they are in progress - then they are erased.
 # Example output
     Testing from ISP (1.2.3.4)...
     Hosted by ISP (City, XX) [2.19 km]: 7.107 ms
-    Download: 123.98 MB/s
-    Upload: 123.61 MB/s
+    Download: 123.98 Mb/s
+    Upload: 123.61 Mb/s
 
 # Requirements
 Tested with with python3-speedtest-cli-2.1.2-4.fc33.noarch
