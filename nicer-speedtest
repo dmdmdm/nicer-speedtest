@@ -66,6 +66,6 @@ def main():
 	upload = results['upload']
 	print('Upload: %0.2f MB/s' % ((upload / 1000.0 / 1000.0)))
 	
-	# s.results.share()
+	s.results.share()
 
 main()
