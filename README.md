@@ -17,7 +17,7 @@ Tested with with python3-speedtest-cli-2.1.2-4.fc33.noarch
 
 # Installation
 On Fedora:
-    dnf install python3-speedtest
+    dnf install python3-speedtest-cli
  
 Drop nicer-speedtest into your /usr/local/bin
     chmod a+x nicer-speedtest
