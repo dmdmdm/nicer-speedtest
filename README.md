@@ -13,4 +13,11 @@ while they are in progress - then they are erased.
     Upload: 123.61 MB/s
 
 # Requirements
-Works with python3-speedtest-cli-2.1.2-4.fc33.noarch at least.
+Tested with with python3-speedtest-cli-2.1.2-4.fc33.noarch
+
+# Installation
+On Fedora:
+    dnf install python3-speedtest
+ 
+Drop nicer-speedtest into your /usr/local/bin
+    chmod a+x nicer-speedtest
