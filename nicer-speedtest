@@ -17,7 +17,7 @@ gclear_to_eol = '\033[K'
 
 gprogress_label = ''
 
-gcolumns = 40
+gcolumns = 40	# Will be updated
 
 gmega = 1000000.0
 
